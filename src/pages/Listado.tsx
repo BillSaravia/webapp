@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, ListGroup } from "react-bootstrap";
 
@@ -14,7 +14,7 @@ const Listado=()=>{
 
                         <Card className="mx-auto" style={{ width: '18rem' }}>
                         <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gengar.gif" />
+                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gengar.gif" />
                         <Card.Body>
                             <Card.Title className="text-center">Rquagmire</Card.Title>
                             <ListGroup variant="flush">
@@ -30,7 +30,7 @@ const Listado=()=>{
 
                         <Card className="mx-auto" style={{ width: '18rem' }}>
                         <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/haunter.gif" />
+                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/haunter.gif" />
                         <Card.Body>
                             <Card.Title className="text-center">Rquagmire</Card.Title>
                             <ListGroup variant="flush">
@@ -47,7 +47,7 @@ const Listado=()=>{
 
                         <Card className="mx-auto" style={{ width: '18rem' }}>
                         <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gastly.gif" />
+                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gastly.gif" />
                         <Card.Body>
                             <Card.Title className="text-center">Rquagmire</Card.Title>
                             <ListGroup variant="flush">
