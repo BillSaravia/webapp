@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, ListGroup } from "react-bootstrap";
+import { getPokemons } from "../controller/getpokemon";
+import { Pokemon } from '../models/pokemon.m';
 
 const Listado=()=>{
+
+    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+
+    useEffect(()=>{
+        const ObtenerTodos = async() =>{
+            const allPokemons = await getPokemons();
+            setPokemons(allPokemons);
+        }
+        ObtenerTodos();
+    });
+
 
     return(
         <>
@@ -12,61 +26,31 @@ const Listado=()=>{
                 <div className="content">
                     <div className="row gap-3">
 
-                        <Card className="mx-auto" style={{ width: '18rem' }}>
-                        <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gengar.gif" />
-                        <Card.Body>
-                            <Card.Title className="text-center">Rquagmire</Card.Title>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>HP: ##</ListGroup.Item>
-                                <ListGroup.Item>Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>Velocidad: ##</ListGroup.Item>
-                            </ListGroup>
-                        </Card.Body>
-                        </Card>
+                        {pokemons?.slice(0,400).map((pokemon)=>(
 
-                        <Card className="mx-auto" style={{ width: '18rem' }}>
-                        <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/haunter.gif" />
-                        <Card.Body>
-                            <Card.Title className="text-center">Rquagmire</Card.Title>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>HP: ##</ListGroup.Item>
-                                <ListGroup.Item>Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>Velocidad: ##</ListGroup.Item>
-                            </ListGroup>
-                        </Card.Body>
-                        </Card>
-
-
-                        <Card className="mx-auto" style={{ width: '18rem' }}>
-                        <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gastly.gif" />
-                        <Card.Body>
-                            <Card.Title className="text-center">Rquagmire</Card.Title>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>HP: ##</ListGroup.Item>
-                                <ListGroup.Item>Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>Velocidad: ##</ListGroup.Item>
-                            </ListGroup>
-                        </Card.Body>
-                        </Card>
-
+                            <Card className="mx-auto" style={{ width: '18rem' }}>
+                            <Card.Header><b> Tipo: </b> {pokemon.type} </Card.Header>
+                            <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src={pokemon.imggif} />
+                            <Card.Body>
+                                <Card.Title className="text-center"> <b> {pokemon.name} </b> </Card.Title>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item><b> HP: </b>{pokemon.hp}</ListGroup.Item>
+                                    <ListGroup.Item><b> Ataque: </b>{pokemon.attack} </ListGroup.Item>
+                                    <ListGroup.Item><b> Defensa: </b>{pokemon.defense} </ListGroup.Item>
+                                    <ListGroup.Item><b> E.Ataque: </b>{pokemon.sp_atk} </ListGroup.Item>
+                                    <ListGroup.Item><b> E.Defensa: </b>{pokemon.sp_def} </ListGroup.Item>
+                                    <ListGroup.Item><b> Velocidad: </b>{pokemon.speed} </ListGroup.Item>
+                                </ListGroup>
+                            </Card.Body>
+                            </Card>
+                        ))}
                     </div>
                 </div>
             </div>
 
         </>
     )
+
 }
 
 export default Listado;
