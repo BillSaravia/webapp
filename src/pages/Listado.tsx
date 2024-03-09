@@ -1,72 +1,105 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup, Figure } from "react-bootstrap";
+import { getPokemons } from "../controller/getpokemon";
+import { Pokemon } from '../models/pokemon.m';
 
 const Listado=()=>{
+
+    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+    const [query, setQuery] = useState("");
+
+
+    useEffect(()=>{
+        const ObtenerTodos = async() =>{
+            const allPokemons = await getPokemons();
+            setPokemons(allPokemons);
+        }
+        ObtenerTodos();
+    });
+
+    const filtrarPokemon = pokemons?.slice(0,400).filter((pokemon)=>{
+        return pokemon.name.toLowerCase().match(query.toLowerCase());
+    })
 
     return(
         <>
             <h1>Pokemon BillCode</h1>
 
+            <header>
+                <input
+                    value={query}
+                    placeholder="Buscar Pokemon"
+                    onChange={(event) => setQuery(event.target.value.trim())}
+                    type="text"
+                />
+            </header>
+
             <div className="content-wrapper">
                 <div className="content">
                     <div className="row gap-3">
 
-                        <Card className="mx-auto" style={{ width: '18rem' }}>
-                        <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gengar.gif" />
-                        <Card.Body>
-                            <Card.Title className="text-center">Rquagmire</Card.Title>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>HP: ##</ListGroup.Item>
-                                <ListGroup.Item>Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>Velocidad: ##</ListGroup.Item>
-                            </ListGroup>
-                        </Card.Body>
-                        </Card>
+                        {filtrarPokemon?.slice(0,400).map((pokemon)=>(
 
-                        <Card className="mx-auto" style={{ width: '18rem' }}>
-                        <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/haunter.gif" />
-                        <Card.Body>
-                            <Card.Title className="text-center">Rquagmire</Card.Title>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>HP: ##</ListGroup.Item>
-                                <ListGroup.Item>Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>Velocidad: ##</ListGroup.Item>
-                            </ListGroup>
-                        </Card.Body>
-                        </Card>
-
-
-                        <Card className="mx-auto" style={{ width: '18rem' }}>
-                        <Card.Header>Tipo: Tierra</Card.Header>
-                        <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src="https://img.pokemondb.net/sprites/black-white/anim/normal/gastly.gif" />
-                        <Card.Body>
-                            <Card.Title className="text-center">Rquagmire</Card.Title>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>HP: ##</ListGroup.Item>
-                                <ListGroup.Item>Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Ataque: ##</ListGroup.Item>
-                                <ListGroup.Item>E.Defensa: ##</ListGroup.Item>
-                                <ListGroup.Item>Velocidad: ##</ListGroup.Item>
-                            </ListGroup>
-                        </Card.Body>
-                        </Card>
-
+                            <Card className="mx-auto" style={{ width: '18rem' }}>
+                            <Card.Header><b> Tipo: </b> {pokemon.type} </Card.Header>
+                            <Card.Img width={80} height={100} className="d-block mx-auto w-50" variant="top" src={pokemon.imggif} />
+                            <Card.Body>
+                                <Card.Title className="text-center"> <b> {pokemon.id} - {pokemon.name} </b> </Card.Title>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item>
+                                        <Figure.Image
+                                        width={16}
+                                        height={16}
+                                        src="https://cdn-icons-png.flaticon.com/128/833/833472.png"
+                                        /><b> HP :</b> {pokemon.hp}
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Figure.Image
+                                        width={16}
+                                        height={16}
+                                        src="https://cdn-icons-png.flaticon.com/512/3522/3522092.png"
+                                        /><b> Ataque: </b>{pokemon.attack}
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Figure.Image
+                                        width={16}
+                                        height={16}
+                                        src="https://cdn-icons-png.flaticon.com/512/929/929429.png"
+                                        /><b> Defensa: </b>{pokemon.defense}
+                                    </ListGroup.Item>  
+                                    <ListGroup.Item>
+                                        <Figure.Image
+                                        width={16}
+                                        height={16}
+                                        src="https://cdn-icons-png.flaticon.com/512/1671/1671062.png"
+                                        /><b> E.Ataque: </b>{pokemon.sp_atk}
+                                    </ListGroup.Item>                                      
+                                    <ListGroup.Item>
+                                        <Figure.Image
+                                        width={16}
+                                        height={16}
+                                        src="https://cdn-icons-png.flaticon.com/512/1671/1671062.png"
+                                        /><b> E.Defensa: </b>{pokemon.sp_def}
+                                    </ListGroup.Item>  
+                                    <ListGroup.Item>
+                                        <Figure.Image
+                                        width={16}
+                                        height={16}
+                                        src="https://cdn-icons-png.flaticon.com/512/8853/8853763.png"
+                                        /><b> Velocidad: </b>{pokemon.speed}
+                                    </ListGroup.Item>  
+                                </ListGroup>
+                            </Card.Body>
+                            </Card>
+                        ))}
                     </div>
                 </div>
             </div>
 
         </>
     )
+
 }
 
 export default Listado;
